@@ -1,0 +1,1168 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>BSNL Guntur - Enterprise Business Portal</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f5f8;
+      color: #263238;
+    }
+
+    /* HEADER */
+
+    .main-header {
+      height: 105px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      padding: 8px 25px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #e1e5ea;
+    }
+
+    .brand-logo {
+      width: 145px;
+      min-width: 145px;
+      height: 85px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .brand-logo img {
+      width: 140px;
+      height: 75px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .header-divider {
+      height: 65px;
+      width: 2px;
+      background: #d9dee5;
+      margin: 0 22px 0 10px;
+      z-index: 2;
+    }
+
+    .header-title {
+      z-index: 2;
+      position: relative;
+    }
+
+    .header-title h1 {
+      margin: 0;
+      color: #003b71;
+      font-size: 29px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .header-title h2 {
+      margin: 5px 0 0;
+      color: #e87524;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .header-curves {
+      position: absolute;
+      right: -40px;
+      top: -90px;
+      width: 440px;
+      height: 230px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        transparent 35%,
+        rgba(255, 153, 51, 0.18) 35%,
+        rgba(255, 153, 51, 0.18) 48%,
+        transparent 48%
+      );
+      transform: rotate(-8deg);
+    }
+
+    .header-curves::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 35px;
+      width: 410px;
+      height: 220px;
+      border-radius: 50%;
+      border-top: 14px solid rgba(0, 153, 91, 0.30);
+      transform: rotate(-8deg);
+    }
+
+    /* NAVIGATION */
+
+    .navbar {
+      background: #003b71;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      min-height: 48px;
+      position: relative;
+      z-index: 10;
+      flex-wrap: wrap;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .navbar button {
+      border: none;
+      background: transparent;
+      color: white;
+      padding: 15px 21px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      height: 48px;
+    }
+
+    .navbar button:hover,
+    .navbar button.active {
+      background: #f58220;
+      color: #ffffff;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 48px;
+      left: 0;
+      min-width: 225px;
+      background: white;
+      box-shadow: 0 5px 14px rgba(0,0,0,0.2);
+      border-radius: 0 0 5px 5px;
+      overflow: hidden;
+      z-index: 30;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      color: #003b71;
+      padding: 13px 16px;
+      text-decoration: none;
+      font-size: 13px;
+      border-bottom: 1px solid #eeeeee;
+      cursor: pointer;
+    }
+
+    .dropdown-menu a:hover {
+      background: #fff1e4;
+      color: #e87524;
+    }
+
+    .nav-item:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* MAIN CONTENT */
+
+    .main-content {
+      padding: 22px;
+      min-height: calc(100vh - 180px);
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .page-heading {
+      color: #003b71;
+      font-size: 23px;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .page-subtitle {
+      color: #687782;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    /* HOME */
+
+    .welcome-panel {
+      background: linear-gradient(110deg, #003b71, #17649c);
+      color: white;
+      padding: 30px;
+      border-radius: 9px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+    }
+
+    .welcome-panel h2 {
+      margin: 0 0 10px;
+      font-size: 27px;
+    }
+
+    .welcome-panel p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .section-heading {
+      color: #003b71;
+      font-size: 19px;
+      margin: 25px 0 15px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 17px;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 5px solid #f58220;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 13px rgba(0,0,0,0.13);
+    }
+
+    .project-card h3 {
+      color: #003b71;
+      margin: 0 0 9px;
+      font-size: 17px;
+    }
+
+    .project-card p {
+      color: #667580;
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* DASHBOARD PANELS */
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    /* NHM overview: project summary on the left, reports stacked on the right */
+    .nhm-overview-layout {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.85fr) minmax(0, 2fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .nhm-overview-info {
+      min-width: 0;
+    }
+
+    .overview-info-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 9px rgba(0,0,0,0.09);
+      border-top: 4px solid #f58220;
+    }
+
+    .overview-info-card h3 {
+      color: #003b71;
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .overview-info-card p {
+      color: #667580;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0 0 20px;
+    }
+
+    .overview-highlight {
+      padding: 12px 0;
+      border-top: 1px solid #e7edf2;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .overview-highlight strong {
+      color: #003b71;
+      font-size: 15px;
+    }
+
+    .overview-highlight span {
+      color: #667580;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .nhm-reports-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .nhm-reports-column .dashboard-frame {
+      height: 430px;
+    }
+
+    .dashboard-panel {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 9px rgba(0,0,0,0.09);
+      min-width: 0;
+    }
+
+    .panel-heading {
+      background: #003b71;
+      color: white;
+      padding: 13px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .panel-heading a {
+      color: white;
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.6);
+      padding: 5px 9px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .panel-heading a:hover {
+      background: #f58220;
+      border-color: #f58220;
+    }
+
+    .dashboard-frame {
+      width: 100%;
+      height: 650px;
+      border: none;
+      display: block;
+      background: #ffffff;
+    }
+
+    /* APPLICATION PANEL */
+
+    .app-panel {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 9px rgba(0,0,0,0.09);
+    }
+
+    .app-frame {
+      width: 100%;
+      height: 750px;
+      border: none;
+      display: block;
+    }
+
+    .open-link {
+      display: inline-block;
+      background: #f58220;
+      color: white;
+      text-decoration: none;
+      padding: 10px 17px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 12px 0;
+    }
+
+    .open-link:hover {
+      background: #db6b0c;
+    }
+
+    /* OTHER PROJECTS */
+
+    .other-card {
+      background: white;
+      padding: 22px;
+      border-radius: 8px;
+      border-top: 4px solid #003b71;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .other-card h3 {
+      color: #003b71;
+      margin: 0 0 10px;
+      font-size: 17px;
+    }
+
+    .other-card p {
+      font-size: 13px;
+      color: #687782;
+      line-height: 1.5;
+    }
+
+    .status-label {
+      display: inline-block;
+      background: #edf2f7;
+      color: #31536f;
+      padding: 5px 9px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #003b71;
+      color: white;
+      text-align: center;
+      padding: 13px;
+      font-size: 12px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 768px) {
+
+      .main-header {
+        height: 85px;
+        padding: 5px 10px;
+      }
+
+      .brand-logo {
+        width: 95px;
+        min-width: 95px;
+        height: 70px;
+      }
+
+      .brand-logo img {
+        width: 90px;
+        height: 60px;
+      }
+
+      .header-divider {
+        height: 48px;
+        margin: 0 10px 0 3px;
+      }
+
+      .header-title h1 {
+        font-size: 21px;
+      }
+
+      .header-title h2 {
+        font-size: 12px;
+      }
+
+      .header-curves {
+        right: -220px;
+      }
+
+      .navbar {
+        padding: 0;
+      }
+
+      .navbar button {
+        padding: 12px 13px;
+        font-size: 12px;
+        height: 43px;
+      }
+
+      .dropdown-menu {
+        top: 43px;
+      }
+
+      .main-content {
+        padding: 13px;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      .nhm-overview-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .nhm-reports-column .dashboard-frame {
+        height: 380px;
+      }
+
+      .dashboard-frame {
+        height: 550px;
+      }
+
+      .app-frame {
+        height: 650px;
+      }
+
+      .welcome-panel {
+        padding: 22px;
+      }
+
+      .welcome-panel h2 {
+        font-size: 22px;
+      }
+    }
+
+    /* LINK INSTALLATION STATUS SHEET TABS */
+    .installation-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 15px;
+    }
+    .installation-tab {
+      border: 1px solid #d5dee8;
+      background: #ffffff;
+      color: #003b71;
+      padding: 11px 17px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .installation-tab:hover, .installation-tab.active {
+      background: #f58220;
+      color: #ffffff;
+      border-color: #f58220;
+    }
+    .sheet-actions { display: flex; align-items: center; gap: 16px; }
+    .refresh-sheet {
+      border: 0; background: transparent; color: #003b71;
+      font: inherit; font-weight: 600; cursor: pointer;
+    }
+    .refresh-sheet:hover { color: #e87524; }
+    .sheet-message { padding: 12px 16px; color: #536273; font-size: 13px; }
+    .installation-table-wrap { width: 100%; overflow: auto; background: #fff; }
+    .installation-data-table { width: 100%; border-collapse: collapse; min-width: 650px; font-size: 13px; }
+    .installation-data-table th, .installation-data-table td {
+      border: 1px solid #d9e1ea; padding: 9px 11px; text-align: left;
+      vertical-align: top; white-space: pre-wrap; overflow-wrap: anywhere;
+    }
+    .installation-data-table tr:first-child td { background: #eaf1f8; font-weight: 700; color: #003b71; }
+    .installation-data-table tr:nth-child(even) td { background: #f8fafc; }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header class="main-header">
+
+    <div class="brand-logo">
+      <img
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/BSNL%20Eng%20Logo%20n%20png.png"
+        alt="BSNL Logo"
+        onerror="this.onerror=null;this.src='https://www.bsnl.co.in/opencms/bsnl/BSNL/images/bsnl_logo.png';">
+    </div>
+
+    <div class="header-divider"></div>
+
+    <div class="header-title">
+      <h1>BSNL Guntur</h1>
+      <h2>Enterprise Business Portal</h2>
+    </div>
+
+    <div class="header-curves"></div>
+
+  </header>
+
+
+  <!-- NAVIGATION MENU -->
+
+  <nav class="navbar">
+
+    <div class="nav-item">
+      <button class="active" data-page="home"
+        onclick="showPage('home', this)">Home</button>
+    </div>
+
+    <div class="nav-item">
+      <button data-page="nhm"
+        onclick="showPage('nhm', this)">NHM AP ▾</button>
+
+      <div class="dropdown-menu">
+        <a onclick="showPage('nhm', null)">NHM Overview</a>
+        <a onclick="showPage('nhmftth', null)">FTTH CR Submission</a>
+        <a onclick="showPage('nhmill', null)">ILL CR Submission</a>
+        <a href="#" onclick="showNhmDashboard('ftth'); return false;">
+          FTTH Dashboard
+        </a>
+        <a href="#" onclick="showNhmDashboard('ill'); return false;">
+          ILL Dashboard
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <button data-page="apgb"
+        onclick="showPage('apgb', this)">APGB MPLS</button>
+    </div>
+
+    <div class="nav-item">
+      <button data-page="courts"
+        onclick="showPage('courts', this)">District Courts</button>
+    </div>
+
+    <div class="nav-item">
+      <button data-page="installation" class="has-dropdown"
+        onclick="showPage('installation', this)">Link Installation Status ▾</button>
+      <div class="dropdown-menu installation-dropdown">
+        <a href="#" onclick="selectInstallationSubmenu('apgb'); return false;">APGB ILL</a>
+        <a href="#" onclick="selectInstallationSubmenu('nhmill'); return false;">NHM ILL</a>
+        <a href="#" onclick="selectInstallationSubmenu('nhmftth'); return false;">NHM FTTH</a>
+        <a href="#" onclick="selectInstallationSubmenu('courts'); return false;">District Courts FTTH</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <button data-page="other"
+        onclick="showPage('other', this)">Other EB Projects</button>
+    </div>
+
+  </nav>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="main-content">
+
+    <!-- HOME PAGE -->
+
+    <section id="home" class="page active">
+
+      <div class="welcome-panel">
+        <h2>Welcome to BSNL Guntur</h2>
+        <p>
+          Enterprise Business Portal – A common platform for monitoring
+          projects, customer services, link provisioning, dashboards
+          and Enterprise Business activities of Guntur BA.
+        </p>
+      </div>
+
+      <h2 class="section-heading">Enterprise Business Projects</h2>
+
+      <div class="project-grid">
+
+        <div class="project-card" onclick="showPage('nhm', null)">
+          <h3>NHM AP Project</h3>
+          <p>FTTH and ILL provisioning, CR submissions and project dashboards.</p>
+        </div>
+
+        <div class="project-card" onclick="showPage('apgb', null)">
+          <h3>APGB MPLS Project</h3>
+          <p>APGB MPLS link provisioning and project application.</p>
+        </div>
+
+        <div class="project-card" onclick="showPage('installation', null)">
+          <h3>Link Installation Status</h3>
+          <p>Monitor link installation and commissioning progress.</p>
+        </div>
+
+        <div class="project-card" onclick="showPage('other', null)">
+          <h3>Other EB Projects</h3>
+          <p>ILL, MPLS, APSWAN, SIP, PRI, FTTH, SD-WAN and other services.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- NHM AP PAGE -->
+
+    <section id="nhm" class="page">
+
+      <h2 class="page-heading">NHM AP – Project Dashboard</h2>
+
+      <p class="page-subtitle">
+        National Health Mission, Andhra Pradesh – FTTH and ILL monitoring.
+      </p>
+
+      <div class="nhm-overview-layout">
+        <div class="nhm-overview-info">
+          <div class="overview-info-card">
+            <h3>NHM AP Project Overview</h3>
+            <p>Monitoring of FTTH and ILL provisioning across National Health Mission facilities in Andhra Pradesh.</p>
+            <div class="overview-highlight">
+              <strong>FTTH</strong>
+              <span>1704 NHM locations</span>
+            </div>
+            <div class="overview-highlight">
+              <strong>ILL</strong>
+              <span>Hospital and medical-facility connectivity</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nhm-reports-column">
+          <div class="dashboard-panel" id="nhm-ill-dashboard">
+            <div class="panel-heading">
+              <span>NHM ILL Report</span>
+              <a target="_blank" rel="noopener"
+                href="https://docs.google.com/spreadsheets/d/1Yu_SaN-cudjmzZ4WP1Vmj-Rqv9_7rqsRkbY6OReRRZU/edit?gid=1172378883#gid=1172378883">
+                Open
+              </a>
+            </div>
+            <iframe class="dashboard-frame"
+              src="https://script.google.com/macros/s/AKfycbyVBy55ifjFSIKW9-7zGmcUbL4Z44wOfecPADQ3fs853pex8PSyaCsI0l5ukPt6x49P/exec">
+            </iframe>
+          </div>
+
+          <div class="dashboard-panel" id="nhm-ftth-dashboard">
+            <div class="panel-heading">
+              <span>NHM FTTH Report</span>
+              <a target="_blank" rel="noopener"
+                href="https://docs.google.com/spreadsheets/d/18-D2KbZMiG1JdHu6-OwzhNqkPUKePPIW2WVrfNc_8ZQ/edit?usp=sharing">
+                Open
+              </a>
+            </div>
+            <iframe class="dashboard-frame"
+              src="https://docs.google.com/spreadsheets/d/18-D2KbZMiG1JdHu6-OwzhNqkPUKePPIW2WVrfNc_8ZQ/preview">
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-heading">NHM AP Applications</h3>
+
+      <div class="project-grid">
+
+        <div class="project-card"
+          onclick="openExternal('https://script.google.com/macros/s/AKfycbxn7LDyeW-qst1_KWbIFOPLGSnheEmj4Z3Fq6MhEwsYFgxsSgZ-moqKZ7ev-M2ZmwEb/exec')">
+          <h3>FTTH CR Submission</h3>
+          <p>Open the NHM FTTH commissioning report submission application.</p>
+        </div>
+
+        <div class="project-card"
+          onclick="openExternal('https://script.google.com/macros/s/AKfycbzvY_6Q3b4pWSyn4sTCGXskbOpYooCo0hzMpwUz9F1MpYr8P1nYXCtlZeYI2PZyURL-/exec')">
+          <h3>ILL CR Submission</h3>
+          <p>Open the NHM ILL commissioning report submission application.</p>
+        </div>
+
+      </div>
+
+    </section>
+      
+ <!-- NHM CR FTTH PAGE -->
+      <section id="nhmftth" class="page">
+
+  <h2 class="page-heading">NHM AP – FTTH CR Submission</h2>
+
+  <div class="app-panel">
+    <div class="panel-heading">
+      <span>FTTH Commissioning Report Submission</span>
+      <a target="_blank" href="https://script.google.com/macros/s/AKfycbyhlS6AnP2_PqfPRjq0cL7Bi8275WkxWvvyQFmBlL8IZh3JepYVWA4YzSKfeEkBZs1p/exec">Open Separately</a>
+    </div>
+
+    <iframe class="app-frame"
+      src="https://script.google.com/macros/s/AKfycbyhlS6AnP2_PqfPRjq0cL7Bi8275WkxWvvyQFmBlL8IZh3JepYVWA4YzSKfeEkBZs1p/exec">
+    </iframe>
+  </div>
+
+</section>
+
+<!-- NHM CR ILL PAGE -->
+
+<section id="nhmill" class="page">
+
+  <h2 class="page-heading">NHM AP – ILL CR Submission</h2>
+
+  <div class="app-panel">
+    <div class="panel-heading">
+      <span>ILL Commissioning Report Submission</span>
+      <a target="_blank" href="https://script.google.com/macros/s/AKfycbwYzZ6RWRl_UXWAksTGJeZHtgnNMd-yaYzt_0xsAGfNn9QRqB1oON10wHXcuoPOgima/exec">Open Separately</a>
+    </div>
+
+    <iframe class="app-frame"
+      src="https://script.google.com/macros/s/AKfycbwYzZ6RWRl_UXWAksTGJeZHtgnNMd-yaYzt_0xsAGfNn9QRqB1oON10wHXcuoPOgima/exec">
+    </iframe>
+  </div>
+
+</section>
+
+    <!-- APGB PAGE -->
+
+    <section id="apgb" class="page">
+
+      <h2 class="page-heading">APGB MPLS Project</h2>
+
+      <p class="page-subtitle">
+        Andhra Pradesh Grameena Bank – MPLS link provisioning and monitoring.
+      </p>
+
+      <div class="app-panel">
+
+        <div class="panel-heading">
+          <span>APGB MPLS Application</span>
+          <a target="_blank"
+            href="https://script.google.com/macros/s/AKfycbzJMCy092DL7VqKy8-IT5o6uBMEU-gpmSe4hXds2VmfYzrqvXaG6N9ZDxwA_6rWCgiJNA/exec">
+            Open Application
+          </a>
+        </div>
+
+        <iframe
+          class="app-frame"
+          src="https://script.google.com/macros/s/AKfycbzJMCy092DL7VqKy8-IT5o6uBMEU-gpmSe4hXds2VmfYzrqvXaG6N9ZDxwA_6rWCgiJNA/exec">
+        </iframe>
+
+      </div>
+
+    </section>
+
+
+    <!-- DISTRICT COURTS PAGE -->
+
+    <section id="courts" class="page">
+
+      <h2 class="page-heading">District Courts – FTTH Connections</h2>
+
+      <p class="page-subtitle">
+        District Court FTTH connection details, upgrading and commissioning report submission.
+      </p>
+
+      <div class="app-panel">
+
+        <div class="panel-heading">
+          <span>District Courts FTTH Application</span>
+          <a target="_blank" rel="noopener"
+            href="https://script.google.com/macros/s/AKfycbyJ7VQpseyItUJw4Qrhs9w0CTsiDzOoWhrs7ed6lnYvI2fK-zO0fIRIrzIYBK0kligP/exec">
+            Open Separately
+          </a>
+        </div>
+
+        <iframe
+          class="app-frame"
+          src="https://script.google.com/macros/s/AKfycbyJ7VQpseyItUJw4Qrhs9w0CTsiDzOoWhrs7ed6lnYvI2fK-zO0fIRIrzIYBK0kligP/exec"
+          title="District Courts FTTH Application"
+          allow="clipboard-read; clipboard-write">
+        </iframe>
+
+      </div>
+
+    </section>
+
+
+    <!-- LINK INSTALLATION STATUS PAGE -->
+
+    <section id="installation" class="page">
+
+      <h2 class="page-heading">Link Installation Status</h2>
+
+      <p class="page-subtitle">
+        Monitoring of Enterprise Business link installation and commissioning.
+      </p>
+
+      <div class="app-panel">
+        <div class="panel-heading">
+          <span id="installationSheetTitle">APGB ILL – Link Installation Status (A1:F20)</span>
+          <div class="sheet-actions">
+            <button type="button" class="refresh-sheet" onclick="refreshInstallationSheet()">Refresh</button>
+            <a id="installationOpenLink" target="_blank" rel="noopener"
+              href="https://docs.google.com/spreadsheets/d/1a9yZ3cYIaE2XX6nbrWAFYV_O4nyOoxSlRHRU44rbdIU/edit?gid=200652536#gid=200652536">Open Sheet</a>
+          </div>
+        </div>
+        <div id="installationSheetMessage" class="sheet-message">Loading sheet data...</div>
+        <div class="installation-table-wrap">
+          <table id="installationDataTable" class="installation-data-table" aria-label="Link installation status data">
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- OTHER EB PROJECTS PAGE -->
+
+    <section id="other" class="page">
+
+      <h2 class="page-heading">Other Enterprise Business Projects</h2>
+
+      <p class="page-subtitle">
+        Overview of other Enterprise Business services and projects handled
+        by BSNL Guntur BA.
+      </p>
+
+      <div class="project-grid">
+
+        <div class="other-card">
+          <h3>ILL / MPLS / APSWAN</h3>
+          <p>
+            Internet Leased Lines, MPLS VPN and Andhra Pradesh State Wide
+            Area Network connectivity.
+          </p>
+          <span class="status-label">EB Services</span>
+        </div>
+
+        <div class="other-card">
+          <h3>SIP / PRI / Voice Services</h3>
+          <p>
+            SIP Trunk, PRI, enterprise voice connectivity and call centre
+            solutions.
+          </p>
+          <span class="status-label">EB Services</span>
+        </div>
+
+        <div class="other-card">
+          <h3>FTTH / SD-WAN / Wi-Fi</h3>
+          <p>
+            Enterprise FTTH, SD-WAN, managed Wi-Fi and campus connectivity.
+          </p>
+          <span class="status-label">EB Services</span>
+        </div>
+
+        <div class="other-card">
+          <h3>Bulk SIM / IoT / CUG</h3>
+          <p>
+            Bulk mobile connections, IoT SIMs and Corporate User Group
+            mobile services.
+          </p>
+          <span class="status-label">EB Services</span>
+        </div>
+
+        <div class="other-card">
+          <h3>Bulk SMS / WhatsApp</h3>
+          <p>
+            Enterprise messaging, bulk SMS and WhatsApp Business solutions.
+          </p>
+          <span class="status-label">EB Services</span>
+        </div>
+
+        <div class="other-card">
+          <h3>Data Centre / Other Services</h3>
+          <p>
+            Data centre, hosting and other customised Enterprise Business
+            solutions.
+          </p>
+          <span class="status-label">EB Services</span>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+    BSNL Guntur – Enterprise Business Portal
+    | Bharat Sanchar Nigam Limited
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    function showNhmDashboard(type) {
+      showPage('nhm', null);
+      const targetId = type === 'ill' ? 'nhm-ill-dashboard' : 'nhm-ftth-dashboard';
+      window.setTimeout(function() {
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 80);
+    }
+
+    function showPage(pageId, button) {
+
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(function(page) {
+        page.classList.remove('active');
+      });
+
+      // Display selected page
+      var selectedPage = document.getElementById(pageId);
+
+      if (selectedPage) {
+        selectedPage.classList.add('active');
+      }
+
+      // Remove active status from all main menu buttons
+      document.querySelectorAll('.navbar button[data-page]').forEach(
+        function(btn) {
+          btn.classList.remove('active');
+        }
+      );
+
+      // Highlight selected main menu
+      if (button) {
+        button.classList.add('active');
+      } else {
+        var matchingButton = document.querySelector(
+          '.navbar button[data-page="' + pageId + '"]'
+        );
+
+        if (matchingButton) {
+          matchingButton.classList.add('active');
+        }
+      }
+
+      // Close dropdown on mobile after selection
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+    }
+
+
+
+    const installationSheets = {
+      apgb: {
+        title: 'APGB ILL',
+        id: '1a9yZ3cYIaE2XX6nbrWAFYV_O4nyOoxSlRHRU44rbdIU',
+        gid: '200652536',
+        range: 'A1:F20'
+      },
+      nhmill: {
+        title: 'NHM ILL',
+        id: '1Yu_SaN-cudjmzZ4WP1Vmj-Rqv9_7rqsRkbY6OReRRZU',
+        gid: '1172378883',
+        range: 'A1:F20'
+      },
+      nhmftth: {
+        title: 'NHM FTTH',
+        id: '18-D2KbZMiG1JdHu6-OwzhNqkPUKePPIW2WVrfNc_8ZQ',
+        gid: '1075599771',
+        range: 'A1:F20'
+      },
+      courts: {
+        title: 'District Courts FTTH',
+        id: '1jS3Tm0aJiTFehA6WiEHIMycqAaNLkgfCAdtUa8IcdKs',
+        gid: '1310013842',
+        range: 'A1:F20'
+      }
+    };
+
+    let currentInstallationSheet = 'apgb';
+    let sheetRequestNumber = 0;
+
+    function loadInstallationSheet(sheetKey) {
+      const sheet = installationSheets[sheetKey];
+      if (!sheet) return;
+      currentInstallationSheet = sheetKey;
+
+      document.getElementById('installationSheetTitle').textContent =
+        sheet.title + ' – Link Installation Status (' + sheet.range + ')';
+      document.getElementById('installationOpenLink').href =
+        'https://docs.google.com/spreadsheets/d/' + sheet.id + '/edit?gid=' + sheet.gid + '#gid=' + sheet.gid;
+      document.getElementById('installationSheetMessage').textContent = 'Loading ' + sheet.title + ' data from ' + sheet.range + '...';
+      document.querySelector('#installationDataTable tbody').innerHTML = '';
+
+      // Use the Google Visualization endpoint so only the configured cell range is returned.
+      const callbackName = 'bsnlSheetCallback' + (++sheetRequestNumber);
+      const script = document.createElement('script');
+      let finished = false;
+      const message = document.getElementById('installationSheetMessage');
+      const tableBody = document.querySelector('#installationDataTable tbody');
+
+      const cleanup = function() {
+        if (script.parentNode) script.parentNode.removeChild(script);
+        try { delete window[callbackName]; } catch (e) { window[callbackName] = undefined; }
+      };
+
+      window[callbackName] = function(response) {
+        if (finished) return;
+        finished = true;
+        cleanup();
+        if (!response || response.status !== 'ok' || !response.table) {
+          message.textContent = 'Unable to read this sheet. Please check that it is shared with the Google account opening this portal.';
+          return;
+        }
+
+        const rows = response.table.rows || [];
+        const columns = 6; // A:F
+        if (!rows.length) {
+          message.textContent = 'No data found in ' + sheet.range + '.';
+          return;
+        }
+
+        rows.forEach(function(row) {
+          const tr = document.createElement('tr');
+          for (let col = 0; col < columns; col++) {
+            const td = document.createElement('td');
+            const cell = row.c && row.c[col] ? row.c[col] : null;
+            td.textContent = cell ? (cell.f !== null && cell.f !== undefined ? cell.f : (cell.v !== null && cell.v !== undefined ? cell.v : '')) : '';
+            tr.appendChild(td);
+          }
+          tableBody.appendChild(tr);
+        });
+        message.textContent = 'Showing ' + sheet.range + ' from ' + sheet.title + '.';
+      };
+
+      script.onerror = function() {
+        if (finished) return;
+        finished = true;
+        cleanup();
+        message.textContent = 'Could not load sheet data. Check sheet sharing/access and try Refresh.';
+      };
+
+      const queryUrl = 'https://docs.google.com/spreadsheets/d/' + sheet.id +
+        '/gviz/tq?gid=' + sheet.gid +
+        '&range=' + encodeURIComponent(sheet.range) +
+        '&tqx=' + encodeURIComponent('out:json;responseHandler:' + callbackName);
+      script.src = queryUrl;
+      document.head.appendChild(script);
+
+      window.setTimeout(function() {
+        if (finished) return;
+        finished = true;
+        cleanup();
+        message.textContent = 'The sheet did not respond. Check that it is shared with the Google account opening this portal, then refresh.';
+      }, 20000);
+    }
+
+    function selectInstallationSubmenu(sheetKey) {
+      const mainButton = document.querySelector('.navbar button[data-page="installation"]');
+      showPage('installation', mainButton);
+      loadInstallationSheet(sheetKey);
+    }
+
+    function refreshInstallationSheet() {
+      loadInstallationSheet(currentInstallationSheet);
+    }
+
+    function openExternal(url) {
+      window.open(url, '_blank');
+    }
+
+  </script>
+
+</body>
+</html>
